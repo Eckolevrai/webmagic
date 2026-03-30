@@ -33,7 +33,7 @@ public class SimpleHttpClient {
     }
 
     public <T> T get(Request request, Class<T> clazz) {
-        Page page = httpClientDownloader.download(request, site.toTask());
+        Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
         if (!page.isDownloadSuccess()) {
             return null;
         }
@@ -41,11 +41,11 @@ public class SimpleHttpClient {
     }
 
     public Page get(String url) {
-        return httpClientDownloader.download(new Request(url), site.toTask());
+        return httpClientDownloader.download(new Request(url), SiteTaskFactory.fromSite(Site.me()));
     }
 
     public Page get(Request request) {
-        return httpClientDownloader.download(request, site.toTask());
+        return httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
     }
 
 }
