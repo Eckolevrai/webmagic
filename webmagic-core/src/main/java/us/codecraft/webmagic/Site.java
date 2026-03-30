@@ -1,15 +1,13 @@
 package us.codecraft.webmagic;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import us.codecraft.webmagic.CharsetConfig;
-import us.codecraft.webmagic.CookieConfig;
-import us.codecraft.webmagic.HttpConfig;
-import us.codecraft.webmagic.RetryConfig;
-import us.codecraft.webmagic.SiteConfig;
+import us.codecraft.webmagic.config.CharsetConfig;
+import us.codecraft.webmagic.config.CookieConfig;
+import us.codecraft.webmagic.config.HttpConfig;
+import us.codecraft.webmagic.config.RetryConfig;
+import us.codecraft.webmagic.config.SiteConfig;
 
 /**
  * Object contains setting for crawler.<br>

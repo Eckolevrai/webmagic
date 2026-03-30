@@ -1,4 +1,4 @@
-package us.codecraft.webmagic;
+package us.codecraft.webmagic.config;
 
 import java.util.*;
 
