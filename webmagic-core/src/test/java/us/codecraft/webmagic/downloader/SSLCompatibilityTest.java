@@ -4,6 +4,7 @@ import org.junit.Test;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.SiteTaskFactory;
 import us.codecraft.webmagic.Task;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +19,7 @@ public class SSLCompatibilityTest {
     @Test
     public void test_tls12() throws Exception {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-        Task task = Site.me().setCycleRetryTimes(5).toTask();
+        Task task = SiteTaskFactory.fromSite(Site.me().setCycleRetryTimes(5));
         Request request = new Request("https://juejin.im/");
         Page page = httpClientDownloader.download(request, task);
         assertThat(page.isDownloadSuccess()).isTrue();

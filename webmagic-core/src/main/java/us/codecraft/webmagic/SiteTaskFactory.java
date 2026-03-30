@@ -2,9 +2,9 @@ package us.codecraft.webmagic;
 
 import java.util.UUID;
 
-public class SiteTask {
+public class SiteTaskFactory {
 
-    private SiteTask() {
+    private SiteTaskFactory() {
     }
 
     public static Task fromSite(Site site) {

@@ -4,6 +4,7 @@ package us.codecraft.webmagic.downloader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,10 +16,7 @@ import org.junit.Test;
 import com.github.dreamhead.moco.HttpServer;
 import com.github.dreamhead.moco.Runnable;
 import com.github.dreamhead.moco.Runner;
-import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.Request;
-import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Task;
+import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.model.HttpRequestBody;
 import us.codecraft.webmagic.proxy.Proxy;
 import us.codecraft.webmagic.proxy.SimpleProxyProvider;
@@ -66,7 +64,8 @@ public class HttpClientDownloaderTest {
     @Test
     public void test_download_fail() {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-        Task task = Site.me().setDomain("localhost").setCycleRetryTimes(5).toTask();
+        Site site = Site.me().setDomain("localhost").setCycleRetryTimes(5);
+        Task task = SiteTaskFactory.fromSite(site);
         Request request = new Request(PAGE_ALWAYS_NOT_EXISTS);
         Page page = httpClientDownloader.download(request, task);
         assertThat(page.isDownloadSuccess()).isFalse();
@@ -177,7 +176,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423");
                 request.addCookie("cookie","cookie-webmagic");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -194,7 +193,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423");
                 request.addCookie("cookie","cookie-webmagic");
-                Page page = httpClientDownloader.download(request, Site.me().setDisableCookieManagement(true).toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me().setDisableCookieManagement(true)));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -211,7 +210,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423");
                 request.addHeader("header","header-webmagic");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -227,7 +226,7 @@ public class HttpClientDownloaderTest {
                 HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423");
-                Page page = httpClientDownloader.download(request, Site.me().addHeader("header","header-webmagic").toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me().addHeader("header","header-webmagic")));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -244,7 +243,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423");
                 Site site = Site.me().addCookie("cookie", "cookie-webmagic").setDomain("127.0.0.1");
-                Page page = httpClientDownloader.download(request, site.toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(site));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -260,7 +259,7 @@ public class HttpClientDownloaderTest {
                 final HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423/");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getRawText()).isEqualTo("foo");
             }
         });
@@ -277,7 +276,7 @@ public class HttpClientDownloaderTest {
                 httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(new Proxy("127.0.0.1", 13423, "username", "password")));
                 Request request = new Request();
                 request.setUrl("http://www.baidu.com");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getRawText()).isEqualTo("ok");
             }
         });
@@ -294,7 +293,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setBinaryContent(true);
                 request.setUrl("http://127.0.0.1:13423/");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getRawText()).isNull();
                 assertThat(page.getBytes()).isEqualTo("binary".getBytes());
             }
@@ -311,7 +310,7 @@ public class HttpClientDownloaderTest {
                 final HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
                 Request request = new Request();
                 request.setUrl("http://127.0.0.1:13423/");
-                Page page = httpClientDownloader.download(request, Site.me().toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me()));
                 assertThat(page.getCharset()).isEqualTo("utf-8");
             }
         });
@@ -328,7 +327,7 @@ public class HttpClientDownloaderTest {
                 Request request = new Request();
                 request.setCharset("utf-8");
                 request.setUrl("http://127.0.0.1:13423/");
-                Page page = httpClientDownloader.download(request, Site.me().setCharset("gbk").toTask());
+                Page page = httpClientDownloader.download(request, SiteTaskFactory.fromSite(Site.me().setCharset("gbk")));
                 assertThat(page.getCharset()).isEqualTo("utf-8");
             }
         });
@@ -339,7 +338,7 @@ public class HttpClientDownloaderTest {
         Request request = new Request();
         request.setUrl("http://127.0.0.1:13423/");
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-         assertThrows(NullPointerException.class, () -> httpClientDownloader.download(request,null));       
+         assertThrows(NullPointerException.class, () -> httpClientDownloader.download(request,null));
     }
 
 

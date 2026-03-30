@@ -5,6 +5,7 @@ import org.mockito.Mockito;
 
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.SiteTaskFactory;
 import us.codecraft.webmagic.Task;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class SimpleProxyProviderTest {
 
-    public static final Task TASK = Site.me().toTask();
+    public static final Task TASK = SiteTaskFactory.fromSite(Site.me());
 
     @Test
     public void test_get_proxy() throws Exception {

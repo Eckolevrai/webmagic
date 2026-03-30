@@ -120,17 +120,18 @@ public class Site {
         return retryConfig.getSleepTime();
     }
 
-    public Site setRetrySleepTime(int retryTime) {
-        retryConfig.setRetrySleepTime(retryTime);
+    public Site setRetryTimes(int retryTime) {
+        retryConfig.setRetryTimes(retryTime);
         return this;
     }
 
-    public int getRetrySleepTime() {
-        return retryConfig.getRetrySleepTime();
+    public int getRetryTimes() {
+        return retryConfig.getRetryTimes();
     }
 
     public Site setCycleRetryTimes(int cycleRetryTimes) {
         retryConfig.setCycleRetryTimes(cycleRetryTimes);
+        return this;
     }
 
     public int getCycleRetryTimes() {

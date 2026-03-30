@@ -3,6 +3,7 @@ package us.codecraft.webmagic.downloader;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.SiteTaskFactory;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.selector.Html;
 
@@ -32,7 +33,7 @@ public abstract class AbstractDownloader implements Downloader {
      * @return html
      */
     public Html download(String url, String charset) {
-        Page page = download(new Request(url), Site.me().setCharset(charset).toTask());
+        Page page = download(new Request(url), SiteTaskFactory.fromSite(Site.me().setCharset(charset)));
         return (Html) page.getHtml();
     }
 
