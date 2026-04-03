@@ -43,26 +43,25 @@ public class PageContent {
         return rawText;
     }
 
-    public PageContent setRawText(String rawText) {
+    public void setRawText(String rawText) {
         this.rawText = rawText;
-        return this;
+        this.html = null;
+        this.json = null;
     }
 
     public byte[] getBytes() {
         return bytes;
     }
 
-    public PageContent setBytes(byte[] bytes) {
+    public void setBytes(byte[] bytes) {
         this.bytes = bytes;
-        return this;
     }
 
     public String getCharset() {
         return charset;
     }
 
-    public PageContent setCharset(String charset) {
+    public void setCharset(String charset) {
         this.charset = charset;
-        return this;
     }
 }
