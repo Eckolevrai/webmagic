@@ -19,11 +19,11 @@ public class PageTargets {
         return targetRequests;
     }
 
-    public void addTargetRequest(Iterable<String> requests) {
-        addTargetRequest(requests, 0);
+    public void addTargetRequests(Iterable<String> requests) {
+        addTargetRequests(requests, 0);
     }
 
-    public void addTargetRequest(Iterable<String> requests, long priority) {
+    public void addTargetRequests(Iterable<String> requests, long priority) {
         if (requests == null) {
             return;
         }
