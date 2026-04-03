@@ -89,7 +89,7 @@ public class PhantomJSDownloader extends AbstractDownloader {
             logger.info("downloading page: " + request.getUrl());
         }
 
-        Page page = Page.fail(request);
+        Page page = Page.ofFailure(request);
         try {
             String content = getPage(request);
             if (!content.contains("HTTP request failed")) {

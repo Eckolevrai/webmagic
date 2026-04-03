@@ -46,23 +46,10 @@ public class Page {
         this.targets = new PageTargets(context);
     }
 
-    @Deprecated
-    public static Page fail() {
-        return fail(null);
-    }
-
     private Page(Request request, boolean downloadSuccess) {
         this();
         setRequest(request);
         setDownloadSuccess(downloadSuccess);
-    }
-
-    @Deprecated(since = "1.0.2", forRemoval = true)
-    public static Page fail(Request request) {
-        Page page = new Page();
-        page.setRequest(request);
-        page.setDownloadSuccess(false);
-        return page;
     }
 
     public Page setSkip(boolean skip) {
@@ -80,11 +67,6 @@ public class Page {
 
     public Json getJson() {
         return content.getJson();
-    }
-
-    @Deprecated
-    public void setHtml(Html html) {
-        content.setHtml(html);
     }
 
     public List<Request> getTargetRequests() {

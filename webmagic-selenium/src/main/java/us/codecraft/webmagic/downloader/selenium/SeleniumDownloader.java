@@ -12,7 +12,6 @@ import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.AbstractDownloader;
-import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.PlainText;
 import us.codecraft.webmagic.utils.HttpConstant;
 
@@ -76,7 +75,7 @@ public class SeleniumDownloader extends AbstractDownloader implements Closeable 
     public Page download(Request request, Task task) {
         checkInit();
         WebDriver webDriver = null;
-        Page page = Page.fail(request);
+        Page page = Page.ofFailure(request);
         try {
             webDriver = webDriverPool.get();
 
@@ -110,7 +109,6 @@ public class SeleniumDownloader extends AbstractDownloader implements Closeable 
             String content = webElement.getAttribute("outerHTML");
             page.setDownloadSuccess(true);
             page.setRawText(content);
-            page.setHtml(new Html(content, request.getUrl()));
             page.setUrl(new PlainText(request.getUrl()));
             page.setRequest(request);
             page.setStatusCode(HttpConstant.StatusCode.CODE_200);

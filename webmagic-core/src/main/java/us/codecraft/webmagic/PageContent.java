@@ -24,10 +24,6 @@ public class PageContent {
         return html;
     }
 
-    public void setHtml(Html html) {
-        this.html = html;
-    }
-
     public Json getJson() {
         if (json == null) {
             json = new Json(rawText);

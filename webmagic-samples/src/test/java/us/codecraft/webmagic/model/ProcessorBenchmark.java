@@ -6,7 +6,6 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.samples.OschinaBlog;
-import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.PlainText;
 
 /**
@@ -21,7 +20,7 @@ public class ProcessorBenchmark {
         Page page = new Page();
         page.setRequest(new Request("http://my.oschina.net/flashsword/blog"));
         page.setUrl(new PlainText("http://my.oschina.net/flashsword/blog"));
-        page.setHtml(new Html(html));
+        page.setRawText(html);
         long time = System.currentTimeMillis();
         for (int i = 0; i < 1000; i++) {
             modelPageProcessor.process(page);

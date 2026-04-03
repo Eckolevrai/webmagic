@@ -55,7 +55,7 @@ public class ModelPageProcessorTest {
         ModelPageProcessor modelPageProcessor = ModelPageProcessor.create(null, MockModel.class);
         Page page = pageMocker.getMockPage();
         modelPageProcessor.process(page);
-        assertThat(page.getTargetRequests()).containsExactly(new Request("http://webmagic.io/bar/3"), new Request("http://webmagic.io/bar/4"), new Request("http://webmagic.io/foo/3"), new Request("http://webmagic.io/foo/4"));
+        assertThat(page.targets().getTargetRequests()).containsExactly(new Request("http://webmagic.io/bar/3"), new Request("http://webmagic.io/bar/4"), new Request("http://webmagic.io/foo/3"), new Request("http://webmagic.io/foo/4"));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class ModelPageProcessorTest {
         Page page = pageMocker.getMockPage();
         modelPageProcessor.setExtractLinks(false);
         modelPageProcessor.process(page);
-        assertThat(page.getTargetRequests()).isEmpty();
+        assertThat(page.targets().getTargetRequests()).isEmpty();
     }
 
 
